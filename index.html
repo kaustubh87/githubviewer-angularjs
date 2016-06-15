@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app="githubviewer">
+
+<head>
+  <script data-require="angularjs@1.2.1" data-semver="1.2.1" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js"></script>
+</head>
+
+<body>
+
+  <div ng-controller="MainController">
+    {{ error }}
+    <form name="searchForm">
+
+      <input type="text" required placeholder="search" ng-model="username" />
+      <input type="submit" value="Search" ng-click="search(username)" />
+    </form>
+
+    <div ng-show="user">
+      <h2> {{message}} </h2>
+      <h3>User Name is  {{user.name}}</h3>
+
+
+      <img ng-src="{{user.avatar_url}}" width="100" height="200" /> Sort By:
+      <select ng-model="reposSortOrder">
+        <option value="+name">Ascending</option>
+        <option value="-name">Descending</option>
+        
+      </select>
+      <h4>Repos of the User</h4>
+      <table>
+        <thead>
+          <th>Name</th>
+          <th>Followers</th>
+        </thead>
+        <tbody>
+          <tr ng-repeat="repo in repos | orderBy : reposSortOrder">
+            <td>{{repo.name}}</td>
+            <td>{{repo.followers}}</td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</body>
+
+</html>
